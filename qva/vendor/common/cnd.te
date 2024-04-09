@@ -77,6 +77,7 @@ use_shsusrd_socket(vendor_cnd)
 hal_client_domain(vendor_cnd,hal_wifi_hostapd)
 
 hal_client_domain(vendor_cnd,hal_wifi_supplicant)
+hal_client_domain(vendor_cnd,vendor_hal_qms_qti)
 
 # allow cnd to access wpa_socket
 allow vendor_cnd vendor_wifi_vendor_data_file:dir r_dir_perms;
@@ -95,6 +96,9 @@ allow vendor_cnd { hal_wifi_hostapd_default }:unix_dgram_socket sendto;
 
 vndbinder_use(vendor_cnd)
 allow vendor_cnd vendor_nwmgr_service:service_manager find;
+
+dontaudit vndservicemanager vendor_cnd:binder call;
+
 ##############################################################
 #for using public interface vendor.qti.data.factory
 #client should add their domain to vendor_cnd.te
